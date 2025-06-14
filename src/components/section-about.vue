@@ -7,7 +7,6 @@ export default defineComponent({
   mounted() {
     const animatedElement = this.$refs.animatedElement as HTMLElement;
 
-    // Set initial state
     gsap.set(animatedElement, {
       opacity: 0,
       y: 60,
@@ -94,14 +93,13 @@ export default defineComponent({
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .container {
   display: flex;
   flex-direction: column;
-  max-width: 80%;
-  padding: 100px 0;
-  margin: auto;
+  padding: 5rem 8rem;
   gap: 2rem;
+  margin-bottom: 20px;
 }
 
 .wrapper {
