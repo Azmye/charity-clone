@@ -25,7 +25,7 @@ export default defineComponent({
     const content = this.$refs.content as HTMLElement;
 
     const observer = new IntersectionObserver(
-      (entries, observer) => {
+      (entries) => {
         if (entries[0].isIntersecting) {
           gsap.fromTo(
             heroLogo,
@@ -59,7 +59,6 @@ export default defineComponent({
               stagger: 0.2,
             }
           );
-          observer.disconnect();
         }
       },
       { threshold: 0.3 }
