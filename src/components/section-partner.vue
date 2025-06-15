@@ -21,7 +21,6 @@ export default defineComponent({
             const el = entry.target as HTMLElement;
 
             if (entry.isIntersecting) {
-              // Cancel any previous GSAP tweens on this element
               gsap.killTweensOf(el);
 
               gsap.fromTo(
@@ -35,7 +34,6 @@ export default defineComponent({
                 }
               );
             } else {
-              // Optionally reset it so it's ready for next entrance
               gsap.set(el, { opacity: 0, y: 100 });
             }
           });
@@ -46,7 +44,7 @@ export default defineComponent({
       );
 
       items.forEach((item) => {
-        gsap.set(item, { opacity: 0, y: 100 }); // initial state
+        gsap.set(item, { opacity: 0, y: 100 });
         observer.observe(item);
       });
     });
