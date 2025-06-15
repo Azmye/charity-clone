@@ -24,7 +24,7 @@ export default defineComponent({
             });
           } else {
             gsap.to(animatedElement, {
-              opacity: 1,
+              opacity: 0,
               y: 80,
               duration: 0.6,
               ease: "power2.in",
