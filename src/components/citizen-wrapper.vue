@@ -1,6 +1,5 @@
-<!-- components/CitizenCard.vue -->
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, nextTick } from "vue";
 import gsap from "gsap";
 
 export default defineComponent({
@@ -11,25 +10,28 @@ export default defineComponent({
     name: { type: String, required: true },
     description: { type: String, required: true },
   },
-  setup() {
-    const cardRef = ref<HTMLElement | null>(null);
-
-    onMounted(() => {
-      const el = cardRef.value;
+  data() {
+    return {
+      observer: null as IntersectionObserver | null,
+    };
+  },
+  mounted() {
+    nextTick(() => {
+      const el = this.$refs.cardRef as HTMLElement;
       if (!el) return;
 
       gsap.set(el, { opacity: 0, y: 50 });
 
-      const observer = new IntersectionObserver(
+      this.observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              gsap.to(el, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: "power2.out",
-              });
+              gsap.killTweensOf(el);
+              gsap.fromTo(
+                el,
+                { opacity: 0, y: 50 },
+                { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+              );
             } else {
               gsap.set(el, { opacity: 0, y: 50 });
             }
@@ -38,12 +40,13 @@ export default defineComponent({
         { threshold: 0.3 }
       );
 
-      observer.observe(el);
+      this.observer.observe(el);
     });
-
-    return {
-      cardRef,
-    };
+  },
+  beforeUnmount() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
   },
 });
 </script>
@@ -63,6 +66,10 @@ export default defineComponent({
   text-align: center;
   gap: 0.5rem;
   opacity: 0;
+
+  img {
+    filter: grayscale(100%);
+  }
 
   h4 {
     font-weight: 400;
