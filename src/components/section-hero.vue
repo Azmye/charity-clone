@@ -73,7 +73,7 @@ export default defineComponent({
   <section class="hero" ref="section">
     <div class="hero__container" ref="container">
       <div class="hero__header">
-        <div ref="logoSlideshow">
+        <div class="logo-slide-show" ref="logoSlideshow">
           <LogoSlideshow :slides="slides" />
         </div>
         <h1 ref="heroTitle" class="hero__title">
@@ -131,6 +131,31 @@ export default defineComponent({
 
   &__subtitle {
     font-size: 1.85rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: 2rem 1rem;
+    }
+
+    .hero__container {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .hero__header {
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+
+    .hero__title {
+      font-size: 1.2rem;
+      text-align: left;
+    }
+
+    .hero__subtitle {
+      font-size: 1.5rem;
+    }
   }
 }
 </style>

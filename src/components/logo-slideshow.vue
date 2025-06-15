@@ -102,4 +102,16 @@ export default defineComponent({
     display: block;
   }
 }
+
+@media (max-width: 768px) {
+  .logo {
+    width: 80px;
+
+    img {
+      width: 100%;
+      height: 80px;
+      display: block;
+    }
+  }
+}
 </style>
