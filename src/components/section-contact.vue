@@ -78,4 +78,37 @@ export default defineComponent({
     }
   }
 }
+
+@media (max-width: 768px) {
+  .contact {
+    flex-direction: column;
+    padding: 2rem;
+
+    &__header {
+      width: 100%;
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p,
+      a {
+        font-size: 0.9rem;
+      }
+    }
+
+    .social-links-wrapper {
+      margin-left: 10px;
+    }
+
+    &__content {
+      width: 100%;
+      margin-top: 3rem;
+
+      .content-image-wrapper {
+        width: 100%;
+      }
+    }
+  }
+}
 </style>
