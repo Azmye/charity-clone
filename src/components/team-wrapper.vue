@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent } from "vue";
 import gsap from "gsap";
 
 export default defineComponent({
@@ -10,39 +10,31 @@ export default defineComponent({
     name: { type: String, required: true },
     jobTitle: { type: String, required: true },
   },
-  setup() {
-    const cardRef = ref<HTMLElement | null>(null);
+  mounted() {
+    const el = this.$refs.cardRef as HTMLElement;
+    if (!el) return;
 
-    onMounted(() => {
-      const el = cardRef.value;
-      if (!el) return;
+    gsap.set(el, { opacity: 0, y: 50 });
 
-      gsap.set(el, { opacity: 0, y: 50 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            gsap.to(el, {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: "power2.out",
+            });
+          } else {
+            gsap.set(el, { opacity: 0, y: 50 });
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              gsap.to(el, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: "power2.out",
-              });
-            } else {
-              gsap.set(el, { opacity: 0, y: 50 }); // reset when out of view
-            }
-          });
-        },
-        { threshold: 0.3 }
-      );
-
-      observer.observe(el);
-    });
-
-    return {
-      cardRef,
-    };
+    observer.observe(el);
   },
 });
 </script>
@@ -63,7 +55,6 @@ export default defineComponent({
   flex-direction: column;
   background-color: #e9e63f;
   height: 100%;
-  opacity: 0; // make sure initial opacity is hidden
 
   .inner-wrapper {
     display: flex;
