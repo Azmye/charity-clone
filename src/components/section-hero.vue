@@ -24,9 +24,11 @@ export default defineComponent({
     const heroLogo = this.$refs.logoSlideshow as HTMLElement;
     const content = this.$refs.content as HTMLElement;
 
+    // Create an IntersectionObserver to trigger animations when the hero section enters the viewport
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
+          // Animate logo sliding in from top with fade
           gsap.fromTo(
             heroLogo,
             { opacity: 0, y: -60 },
@@ -37,6 +39,8 @@ export default defineComponent({
               ease: "power3.out",
             }
           );
+
+          // Animate title sliding in from the right with fade
           gsap.fromTo(
             heroTitle,
             { opacity: 0, x: 80 },
@@ -48,6 +52,8 @@ export default defineComponent({
               stagger: 0.2,
             }
           );
+
+          // Animate subtitle and social links sliding in from bottom with fade
           gsap.fromTo(
             content,
             { opacity: 0, y: 60 },
@@ -61,9 +67,10 @@ export default defineComponent({
           );
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 } // Trigger when 30% of the hero section is visible
     );
 
+    // Start observing the hero section
     observer.observe(section);
   },
 });
