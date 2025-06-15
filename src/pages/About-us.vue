@@ -2,6 +2,7 @@
 import SectionAbout from "../components/section-about.vue";
 import SectionHero from "../components/section-hero.vue";
 import SectionProject from "../components/section-project.vue";
+import SectionTeams from "../components/section-teams.vue";
 import SectionWork from "../components/section-work.vue";
 </script>
 
@@ -13,4 +14,6 @@ import SectionWork from "../components/section-work.vue";
   <SectionProject />
 
   <SectionWork />
+
+  <SectionTeams />
 </template>
