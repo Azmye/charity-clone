@@ -48,9 +48,11 @@ export default defineComponent({
 
   &__header {
     margin-bottom: 60px;
+
     h2 {
       font-size: 3rem;
     }
+
     p {
       font-size: 2rem;
       text-align: left;
@@ -59,8 +61,48 @@ export default defineComponent({
 
   &__content {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr); // Default: 4 columns
     gap: 2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .teams {
+    padding: 4rem;
+
+    &__header {
+      h2 {
+        font-size: 2.4rem;
+      }
+
+      p {
+        font-size: 1.6rem;
+      }
+    }
+
+    &__content {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .teams {
+    padding: 2rem;
+
+    &__header {
+      h2 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+
+    &__content {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 }
 </style>

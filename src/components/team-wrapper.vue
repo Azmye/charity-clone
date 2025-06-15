@@ -90,4 +90,43 @@ export default defineComponent({
     }
   }
 }
+
+@media (max-width: 768px) {
+  .team-wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: #e9e63f;
+    height: 95%;
+
+    .inner-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      // align-items: center;
+      text-align: center;
+      background-color: transparent;
+      border: 3.5px solid #000;
+      padding: 12px;
+      transition: transform 0.3s ease;
+      height: 100%;
+      margin-bottom: auto;
+
+      &:hover {
+        transform: scale(0.9);
+      }
+
+      img {
+        filter: grayscale(100%);
+        width: 100%;
+        transition: filter 0.3s ease;
+      }
+
+      h4 {
+        margin-bottom: 0.3rem;
+        font-weight: 500;
+        font-size: 16px;
+      }
+    }
+  }
+}
 </style>
