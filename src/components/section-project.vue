@@ -51,7 +51,7 @@ export default defineComponent({
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .our-project {
   background-color: #3e88ff;
   display: flex;
@@ -97,6 +97,24 @@ export default defineComponent({
       display: flex;
       flex-direction: column;
       gap: 3rem;
+
+      .project-wrapper {
+        width: 100% !important;
+        height: auto !important;
+      }
+
+      .project-inner-wrapper {
+        padding: 2rem !important;
+        gap: 0.75rem !important;
+      }
+
+      .project-inner-wrapper h5 {
+        font-size: 1.5rem !important;
+      }
+
+      .project-inner-wrapper p {
+        font-size: 1rem !important;
+      }
     }
   }
 }
