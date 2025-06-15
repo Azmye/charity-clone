@@ -25,21 +25,27 @@ export default defineComponent({
         backgroundColor="#000"
         title="Emergency Aid. WAR 2022."
         paragraph="providing food and medicine to the shelters and animals which lost their homes and families due to the war"
-        href="https://example.com/project-details"
+        href="#"
+        font-size="lg"
+        font-weight="bold"
       />
 
       <ProjectWrapper
         backgroundColor="#31be32"
         title="Non-commercial feed line"
         paragraph="construction of industrial production base where food for shelters will be produced on a free basis "
-        href="https://example.com/project-details"
+        href="#"
+        font-size="lg"
+        font-weight="bold"
       />
 
       <ProjectWrapper
         backgroundColor="#ff97d0"
         title="Education and Control"
         paragraph="lectures on communication, organisation and coordination of processes, control over the use of aid"
-        href="https://example.com/project-details"
+        href="#"
+        font-size="lg"
+        font-weight="bold"
       />
     </div>
   </div>

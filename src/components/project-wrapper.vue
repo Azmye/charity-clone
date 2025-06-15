@@ -1,30 +1,111 @@
 <script lang="ts">
-import gsap from "gsap";
 import { defineComponent, type PropType } from "vue";
+import gsap from "gsap";
 
 export default defineComponent({
   name: "ProjectWrapper",
   props: {
+    fontWeight: {
+      type: String as PropType<
+        | "normal"
+        | "bold"
+        | "lighter"
+        | "bolder"
+        | "100"
+        | "200"
+        | "300"
+        | "400"
+        | "500"
+        | "600"
+        | "700"
+        | "800"
+        | "900"
+        | string
+      >,
+      default: "bold",
+    },
+
     backgroundColor: {
       type: String as PropType<string>,
       default: "#000",
     },
-    title: {
+    textColor: {
       type: String as PropType<string>,
+      default: "#ffffff",
+    },
+    fontSize: {
+      type: String as PropType<"sm" | "md" | "lg" | "xl" | "2xl">,
+      default: "md",
+    },
+    title: {
+      type: String,
       required: true,
     },
     paragraph: {
-      type: String as PropType<string>,
-      required: true,
+      type: String,
+      default: "",
     },
     href: {
-      type: String as PropType<string>,
+      type: String,
       required: true,
+    },
+    slideDirection: {
+      type: String as PropType<"left" | "right" | "top" | "bottom" | "fade">,
+      default: "left",
+    },
+    width: {
+      type: String,
+      default: "100%",
+    },
+    height: {
+      type: String,
+      default: "auto",
+    },
+    borderColor: {
+      type: String,
+      default: "#fff",
+    },
+  },
+  computed: {
+    computedFontSize(): string {
+      switch (this.fontSize) {
+        case "sm":
+          return "1rem";
+        case "md":
+          return "1.5rem";
+        case "lg":
+          return "2rem";
+        case "xl":
+          return "2.5rem";
+        case "2xl":
+          return "3rem";
+        default:
+          return "1.5rem";
+      }
     },
   },
   mounted() {
     const wrapper = this.$refs.projectWrapper as HTMLElement;
     const inner = this.$refs.projectInnerWrapper as HTMLElement;
+
+    const getAnimationOffset = () => {
+      switch (this.slideDirection) {
+        case "right":
+          return { x: 100, y: 0 };
+        case "top":
+          return { x: 0, y: -100 };
+        case "bottom":
+          return { x: 0, y: 100 };
+        case "fade":
+          return { x: 0, y: 0 };
+        case "left":
+        default:
+          return { x: -100, y: 0 };
+      }
+    };
+
+    const { x, y } = getAnimationOffset();
+    gsap.set(wrapper, { opacity: 0, x, y });
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -32,14 +113,11 @@ export default defineComponent({
           if (entry.isIntersecting) {
             gsap.fromTo(
               wrapper,
-              { opacity: 0, x: -100 },
-              {
-                opacity: 1,
-                x: 0,
-                duration: 2.5,
-                ease: "power3.out",
-              }
+              { opacity: 0, x, y },
+              { opacity: 1, x: 0, y: 0, duration: 1.5, ease: "power3.out" }
             );
+          } else {
+            gsap.set(wrapper, { opacity: 0, x, y });
           }
         });
       },
@@ -73,12 +151,24 @@ export default defineComponent({
   <a
     class="project-wrapper"
     :href="href"
-    :style="{ backgroundColor }"
+    :style="{
+      backgroundColor,
+      width,
+      height,
+      color: textColor,
+    }"
     ref="projectWrapper"
   >
-    <div class="project-inner-wrapper" ref="projectInnerWrapper">
-      <h5>{{ title }}</h5>
-      <p>{{ paragraph }}</p>
+    <div
+      class="project-inner-wrapper"
+      :class="{ 'center-content': !paragraph }"
+      :style="{ borderColor }"
+      ref="projectInnerWrapper"
+    >
+      <h5 :style="{ fontSize: computedFontSize, fontWeight }">{{ title }}</h5>
+      <p v-if="paragraph" :style="{ fontSize: computedFontSize }">
+        {{ paragraph }}
+      </p>
     </div>
   </a>
 </template>
@@ -89,22 +179,28 @@ export default defineComponent({
   text-decoration: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  color: white;
 }
 
 .project-inner-wrapper {
-  border: 3px solid #fff;
-  padding: 3.2rem 3.2rem;
+  border-width: 3px;
+  border-style: solid;
+  padding: 3.2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 
-  h5 {
-    font-size: 2.3rem;
-  }
-
+  h5,
   p {
-    font-size: 1.5rem;
+    margin: 0;
   }
+}
+
+.center-content {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 </style>
