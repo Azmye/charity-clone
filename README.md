@@ -1,8 +1,9 @@
 # ISA Charity Clone
 
 A Vue.js clone of the Innovative Solutions for Animals charity website.
-live clone site => https://charity-clone-phi.vercel.app/
-original website => https://isa-charity.webflow.io/
+
+- live clone site => https://charity-clone-phi.vercel.app/
+- original website => https://isa-charity.webflow.io/
 
 ## 🚀 Tech Stack
 
