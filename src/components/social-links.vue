@@ -60,4 +60,12 @@ export default defineComponent({
     }
   }
 }
+
+@media (max-width: 768px) {
+  .social-links {
+    .social-icon {
+      width: 32px;
+    }
+  }
+}
 </style>
