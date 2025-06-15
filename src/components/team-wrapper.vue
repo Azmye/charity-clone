@@ -5,17 +5,19 @@ import gsap from "gsap";
 export default defineComponent({
   name: "TeamWrapper",
   props: {
-    imgSrc: { type: String, required: true },
-    imgAlt: { type: String, default: "" },
-    name: { type: String, required: true },
-    jobTitle: { type: String, required: true },
+    imgSrc: { type: String, required: true }, // Team member image
+    imgAlt: { type: String, default: "" }, // Fallback alt text
+    name: { type: String, required: true }, // Team member name
+    jobTitle: { type: String, required: true }, // Team member role
   },
   mounted() {
     const el = this.$refs.cardRef as HTMLElement;
     if (!el) return;
 
+    // Initial state before animation
     gsap.set(el, { opacity: 0, y: 50 });
 
+    // Animate on entering viewport
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -31,7 +33,7 @@ export default defineComponent({
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 } // Trigger when 30% visible
     );
 
     observer.observe(el);

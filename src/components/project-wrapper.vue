@@ -5,6 +5,7 @@ import gsap from "gsap";
 export default defineComponent({
   name: "ProjectWrapper",
   props: {
+    // Customizable props for styling and content
     fontWeight: {
       type: String as PropType<
         | "normal"
@@ -24,49 +25,26 @@ export default defineComponent({
       >,
       default: "bold",
     },
-
-    backgroundColor: {
-      type: String as PropType<string>,
-      default: "#000",
-    },
-    textColor: {
-      type: String as PropType<string>,
-      default: "#ffffff",
-    },
+    backgroundColor: { type: String, default: "#000" },
+    textColor: { type: String, default: "#ffffff" },
     fontSize: {
       type: String as PropType<"sm" | "md" | "lg" | "xl" | "2xl">,
       default: "md",
     },
-    title: {
-      type: String,
-      required: true,
-    },
-    paragraph: {
-      type: String,
-      default: "",
-    },
-    href: {
-      type: String,
-      required: true,
-    },
+    title: { type: String, required: true },
+    paragraph: { type: String, default: "" },
+    href: { type: String, required: true },
     slideDirection: {
       type: String as PropType<"left" | "right" | "top" | "bottom" | "fade">,
       default: "left",
     },
-    width: {
-      type: String,
-      default: "100%",
-    },
-    height: {
-      type: String,
-      default: "auto",
-    },
-    borderColor: {
-      type: String,
-      default: "#fff",
-    },
+    width: { type: String, default: "100%" },
+    height: { type: String, default: "auto" },
+    borderColor: { type: String, default: "#fff" },
   },
+
   computed: {
+    // Convert logical size names into actual `rem` values
     computedFontSize(): string {
       switch (this.fontSize) {
         case "sm":
@@ -84,10 +62,12 @@ export default defineComponent({
       }
     },
   },
+
   mounted() {
     const wrapper = this.$refs.projectWrapper as HTMLElement;
     const inner = this.$refs.projectInnerWrapper as HTMLElement;
 
+    // Set x/y offset for animation based on slideDirection
     const getAnimationOffset = () => {
       switch (this.slideDirection) {
         case "right":
@@ -105,18 +85,23 @@ export default defineComponent({
     };
 
     const { x, y } = getAnimationOffset();
+
+    // Set initial hidden state
     gsap.set(wrapper, { opacity: 0, x, y });
 
+    // Animate the card when it comes into view
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            // Animate in with fade and slide
             gsap.fromTo(
               wrapper,
               { opacity: 0, x, y },
               { opacity: 1, x: 0, y: 0, duration: 1.5, ease: "power3.out" }
             );
           } else {
+            // Reset when out of view
             gsap.set(wrapper, { opacity: 0, x, y });
           }
         });
@@ -126,6 +111,7 @@ export default defineComponent({
 
     observer.observe(wrapper);
 
+    // Hover interaction: subtle float effect
     inner.addEventListener("mouseenter", () => {
       gsap.to(inner, {
         y: -20,

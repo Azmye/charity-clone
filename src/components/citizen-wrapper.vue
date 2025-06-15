@@ -5,14 +5,14 @@ import gsap from "gsap";
 export default defineComponent({
   name: "CitizenWrapper",
   props: {
-    imgSrc: { type: String, required: true },
-    imgAlt: { type: String, default: "" },
-    name: { type: String, required: true },
-    description: { type: String, required: true },
+    imgSrc: { type: String, required: true }, // Image source
+    imgAlt: { type: String, default: "" }, // Optional alt text
+    name: { type: String, required: true }, // Citizen's name
+    description: { type: String, required: true }, // Citizen's description
   },
   data() {
     return {
-      observer: null as IntersectionObserver | null,
+      observer: null as IntersectionObserver | null, // Store observer to disconnect later
     };
   },
   mounted() {
@@ -20,13 +20,15 @@ export default defineComponent({
       const el = this.$refs.cardRef as HTMLElement;
       if (!el) return;
 
+      // Set initial state for animation
       gsap.set(el, { opacity: 0, y: 50 });
 
+      // Animate when card enters viewport
       this.observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              gsap.killTweensOf(el);
+              gsap.killTweensOf(el); // Prevent conflicting tweens
               gsap.fromTo(
                 el,
                 { opacity: 0, y: 50 },
@@ -37,13 +39,14 @@ export default defineComponent({
             }
           });
         },
-        { threshold: 0.3 }
+        { threshold: 0.3 } // Trigger when 30% visible
       );
 
       this.observer.observe(el);
     });
   },
   beforeUnmount() {
+    // Clean up observer to prevent memory leaks
     if (this.observer) {
       this.observer.disconnect();
     }

@@ -7,15 +7,18 @@ export default defineComponent({
   mounted() {
     const animatedElement = this.$refs.animatedElement as HTMLElement;
 
+    // Set initial state of the animated element (invisible and slightly pushed down)
     gsap.set(animatedElement, {
       opacity: 0,
       y: 60,
     });
 
+    // Create an IntersectionObserver to trigger animation when element enters the viewport
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            // Animate in: fade in and slide up
             gsap.to(animatedElement, {
               opacity: 1,
               y: 0,
@@ -23,6 +26,7 @@ export default defineComponent({
               ease: "power2.out",
             });
           } else {
+            // Animate out: fade out and slide further down
             gsap.to(animatedElement, {
               opacity: 0,
               y: 80,
@@ -33,11 +37,12 @@ export default defineComponent({
         });
       },
       {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px",
+        threshold: 0.2, // Trigger when 20% of the element is visible
+        rootMargin: "0px 0px -50px 0px", // Trigger a bit before it fully appears
       }
     );
 
+    // Observe the animated element
     observer.observe(animatedElement);
   },
 });

@@ -2,6 +2,7 @@
 import gsap from "gsap";
 import { defineComponent, type PropType } from "vue";
 
+// Define the shape of each social icon
 interface SocialIcons {
   href: string;
   src: string;
@@ -11,16 +12,24 @@ interface SocialIcons {
 export default defineComponent({
   name: "SocialLinks",
   props: {
+    // Accepts an array of social icons as props
     icons: Array as PropType<SocialIcons[]>,
   },
   mounted() {
+    // Get the DOM elements using ref
     const socialLinks = this.$refs.socialLinks as HTMLElement[] | HTMLElement;
+
+    // Normalize to an array in case only one element is returned
     const links = Array.isArray(socialLinks) ? socialLinks : [socialLinks];
 
+    // Loop through each icon element
     links.forEach((el) => {
+      // Animate on mouse enter (scale down)
       el.addEventListener("mouseenter", () => {
         gsap.to(el, { scale: 0.75, duration: 0.2 });
       });
+
+      // Animate on mouse leave (scale back to normal)
       el.addEventListener("mouseleave", () => {
         gsap.to(el, { scale: 1, duration: 0.2 });
       });

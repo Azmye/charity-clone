@@ -11,18 +11,22 @@ export default defineComponent({
     };
   },
   mounted() {
+    // Wait for the DOM to be fully updated/rendered before querying refs
     nextTick(() => {
       const items = this.$refs.partnerRefs as HTMLElement[] | HTMLElement;
-      if (!Array.isArray(items)) return;
+      if (!Array.isArray(items)) return; // Guard clause if only one element is returned
 
+      // Set up an IntersectionObserver to animate each item when it enters the viewport
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             const el = entry.target as HTMLElement;
 
             if (entry.isIntersecting) {
+              // Stop any ongoing animation on the element to avoid conflicts
               gsap.killTweensOf(el);
 
+              // Animate element in: fade in and move up
               gsap.fromTo(
                 el,
                 { opacity: 0, y: 100 },
@@ -34,15 +38,17 @@ export default defineComponent({
                 }
               );
             } else {
+              // Reset element when it leaves the viewport
               gsap.set(el, { opacity: 0, y: 100 });
             }
           });
         },
         {
-          threshold: 0.3,
+          threshold: 0.3, // Animation triggers when 30% of the element is visible
         }
       );
 
+      // Set initial state and observe each partner item
       items.forEach((item) => {
         gsap.set(item, { opacity: 0, y: 100 });
         observer.observe(item);
