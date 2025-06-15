@@ -149,4 +149,29 @@ export default defineComponent({
     border: 4px solid #000;
   }
 }
+
+@media (max-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .wrapper {
+    h1 {
+      font-size: 1.8rem;
+    }
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  .block--quotes {
+    border-left: 4px solid #ff97d0;
+    padding: 1rem 0rem 1rem 1rem;
+    display: block;
+    margin: 1rem 0rem 1rem 1rem;
+    font-style: italic;
+  }
+}
 </style>
