@@ -203,4 +203,24 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
 }
+
+@media (max-width: 768px) {
+  .project-wrapper {
+    width: 100% !important; // override if prop width is too wide
+    height: auto !important;
+  }
+
+  .project-inner-wrapper {
+    padding: 2rem;
+    gap: 0.75rem;
+  }
+
+  .project-inner-wrapper h5 {
+    font-size: 1.5rem !important;
+  }
+
+  .project-inner-wrapper p {
+    font-size: 1rem !important;
+  }
+}
 </style>

@@ -76,4 +76,28 @@ export default defineComponent({
     gap: 3rem;
   }
 }
+
+@media (max-width: 768px) {
+  .our-project {
+    padding: 2rem;
+    padding-bottom: 3rem;
+
+    &__header {
+      margin-bottom: 40px;
+      h2 {
+        font-size: 1.8rem;
+      }
+      p {
+        font-size: 1rem;
+        text-align: left;
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+  }
+}
 </style>
