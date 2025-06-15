@@ -80,4 +80,20 @@ export default defineComponent({
     font-weight: 400;
   }
 }
+
+@media (max-width: 768px) {
+  .citizen-wrapper {
+    h4 {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}
 </style>

@@ -60,4 +60,25 @@ export default defineComponent({
     gap: 2rem;
   }
 }
+
+@media (max-width: 768px) {
+  .citizens {
+    padding: 2rem;
+
+    &__header {
+      margin-bottom: 30px;
+      h2 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+
+    &__content {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
 </style>
